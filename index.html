@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="v4.5">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo1.svg" type="image/x-icon">
+  <meta name="description" content="">
+  <title>TEST</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/socicon/css/socicon.min.css">
+  <link rel="stylesheet" href="assets/font-un/css/style.css">
+  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/unicore/css/style.css">
+  <link rel="stylesheet" href="assets/dropdown-menu/style.light.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+  
+</head>
+<body>
+
+
+<section class="mbr-section--bg-adapted mbr-section--relative" id="msg-box1-6" data-rv-view="18" style="background-color: rgb(34, 34, 34);">
+    <div class="cta-wrap bg-dark" style="padding-top: 80px; padding-bottom: 65px;" id="questions_app">
+        <div class="container" v-if="state == 'not_started'">
+            <div class="col-md-9">
+                <h2 class="mbr-title-font">У ТЕБЯ ЕСТЬ ШАНС ПОПЫТАТЬ УДАЧУ И ПРОЙТИ ТЕСТ НА ЗНАНИЕ БРЕНДА BQ И ФК "СПАРТАК МОСКВА"</h2>
+                <p>Советуем для начала изучить сайт <a href="http://bq.ru/" target="_blank" class="text-warning">BQ</a> и <a href="http://spartak.com/" target="_blank" class="text-warning">ФК "Спартак Москва"</a></p>
+            </div>
+            <div class="col-md-3">
+                <div><a class="btn mbr-title-font cta-btn btn-default" v-on:click="changeState('entering_user_data')">пройти тест</a></div>
+            </div>
+        </div>
+        <div class="container" v-if="state != 'not_started'">
+            <div class="row" v-if="state == 'entering_user_data'">
+              <div class="row">
+                <div class="col-md-9 col-md-offset-3">
+                  <h2 class="mbr-title-font">Заполни форму чтобы продолжить</h2>
+                </div>
+              </div>
+              
+              <div class="col-md-6 col-md-offset-3">
+                <div class="form-group">
+                  <label for="inputName">Имя</label><label for="inputName" style="color: red" v-if=missingName>*</label>
+                  <input type="text" class="form-control" id="inputName" placeholder="Имя" v-model="user_data.name">
+                </div>
+                <div class="form-group">
+                  <label for="inputBirthday">Дата рождения</label><label for="inputBirthday" style="color: red" v-if=!validateDate>*</label>
+                  <input type="text" class="form-control" id="inputBirthday" placeholder="дд/мм/гггг" v-model="user_data.birthday">
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail">Email адрес</label><label for="inputEmail" style="color: red" v-if=!validateEmail>*</label>
+                  <input type="email" class="form-control" id="inputEmail" placeholder="Email" v-model="user_data.email">
+                </div>
+                <div class="form-group">
+                  <label for="inputPhone">Телефон</label>
+                  <input type="text" class="form-control" id="inputPhone" placeholder="Телефон" v-model="user_data.phone">
+                </div>
+                <button class="btn mbr-title-font cta-btn btn-default" v-on:click="changeState('answering')" :disabled=!validateForm>Далее</button>
+              </div>
+            </div>
+            <div class="row" v-if="state == 'answering'">
+              <h2 class="mbr-title-font">{{questions[current_question]["question"]}}</h2>
+              <p v-if="question_time>0&&questions[current_question].user_answer==null">Время {{question_time}}</p>
+              <p v-if="questions[current_question].user_answer!=null"> Правильный ответ: {{questions[current_question].choices[questions[current_question].answer]}}</p>
+              <ul id="v-for-object">
+                <li v-for="(value, key) in questions[current_question].choices">
+                  <div class="row">
+                    <p></p>
+                    <div class="">
+                      <label class="mbr-title-font col-md-10" style="font-size: 20px; color: white;">
+                        <input type="radio" v-bind:value="key" v-model="questions[current_question].user_answer" :disabled=questions[current_question].user_answer!=key&&questions[current_question].user_answer!=null> {{ value }}
+                      </label> 
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <button class="btn mbr-title-font cta-btn btn-default" v-on:click="nextQuestion()" :disabled=questions[current_question].user_answer==null>Далее</button>
+            </div>
+            <div class="container" v-if="state == 'finished'">
+              <h2 class="mbr-title-font">Результат {{user_data.score}} из {{questions.length}}</h2>
+
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smooth-scroll/SmoothScroll.js"></script>
+  <script src="assets/jarallax/jarallax.js"></script>
+  <script src="assets/unicore/js/script.js"></script>
+  <script src="assets/dropdown-menu/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="assets/bq_test/app.js"></script>
+  
+  
+</body>
+</html>
